@@ -1,24 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
+import CardComponentStructuring from "./component/CardComponentStructuring";
+import React from "react";
+import CardComponentDestructuring from "./component/CardComponentDestructuring";
+import {products} from "./data-json-static/DataJson";
 function App() {
-  return (
+  const data = products
+    console.log(data)
+    return (
 
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-            Learn React
-        </a>
-      </header>
-    </div>
+    <>
+        <div className={"flex mt-10 flex-wrap justify-center  "}>
+            {
+                products.map((product) => (
+                        <CardComponentDestructuring
+                            imageURL={product.image}
+                            description={product.description}
+                            title={product.title}
+                        />
+                    )
+                )
+            }
+            <CardComponentDestructuring
+                description={"Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced. Yet uncommonly his ten who diminution astonished."}
+                title={"javaScript with me"}
+                imageURL={"https://eduport.webestica.com/assets/images/courses/4by3/09.jpg"}/>
+        </div>
+    </>
   );
 }
 
