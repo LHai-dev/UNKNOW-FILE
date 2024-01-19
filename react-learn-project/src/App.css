@@ -1,0 +1,13 @@
+.custom-ellipsis::after {
+    content: '... more';
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    vertical-align: bottom;
+    text-overflow: clip;
+}
+
+.custom-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+}

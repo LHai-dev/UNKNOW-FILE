@@ -12,8 +12,10 @@ function App() {
     <>
         <div className={"flex mt-10 flex-wrap justify-center  "}>
             {
+                // dynamic api
                 products.map((product) => (
                         <CardComponentDestructuring
+                            key={product.id}
                             imageURL={product.image}
                             description={product.description}
                             title={product.title}
@@ -21,6 +23,7 @@ function App() {
                     )
                 )
             }
+            {/*//static data */}
             <CardComponentDestructuring
                 description={"Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced. Yet uncommonly his ten who diminution astonished."}
                 title={"javaScript with me"}
