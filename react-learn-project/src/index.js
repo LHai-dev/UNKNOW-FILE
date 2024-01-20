@@ -5,12 +5,16 @@ import reportWebVitals from './reportWebVitals';
 import NavbarComponent from "./component/NavbarComponent";
 import CardComponentStructuring from "./component/CardComponentStructuring";
 import App from "./App";
+import FooterComponent from "./component/FooterComponent";
+import {BrowserRouter} from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <NavbarComponent/>
-        <App/>
-
+      <BrowserRouter>
+          <NavbarComponent/>
+            <App/>
+          <FooterComponent/>
+      </BrowserRouter>
   </React.StrictMode>
 );
 
