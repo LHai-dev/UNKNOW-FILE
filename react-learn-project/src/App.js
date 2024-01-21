@@ -9,6 +9,7 @@ import {Route, Routes} from "react-router-dom";
 import KafkaComponent from "./component/KafkaComponent";
 import MicroserviceComponent from "./component/MicroserviceComponent";
 import SpringBooTComponent from "./component/SpringBooTComponent";
+import CardDetailComponent from "./component/CardDetailComponent";
 function App() {
   const data = products
     console.log(data)
@@ -18,6 +19,7 @@ function App() {
 
       <Routes>
         <Route path={'/'} element={<Home/>}/>
+        <Route path={'/detail:id'} element={<CardDetailComponent/>}/>
         <Route path={'/kafka'} element={<KafkaComponent/>}/>
         <Route path={'/microservice'} element={<MicroserviceComponent/>}/>
         <Route path={'/spring-boot'} element={<SpringBooTComponent/>}/>

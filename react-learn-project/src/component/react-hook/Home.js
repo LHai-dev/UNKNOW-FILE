@@ -1,5 +1,6 @@
 import {useState} from "react";
 import CardComponentDestructuring from "../CardComponentDestructuring";
+import {Link} from "react-router-dom";
 
 export default function Home() {
     const [count, setCount] = useState(0)
@@ -27,13 +28,17 @@ export default function Home() {
             <div className={"row g-4"}>
                 {
                     products.map((product) => (
-                        <div className={"col-12 col-sm-6 col-md-4 col-lg-3"}>
-                            <CardComponentDestructuring
-                                key={product.id}
-                                imageURL={product.image}
-                                description={product.description}
-                                title={product.title}
-                            />
+                        <div
+                            key={product.id}
+                            className={"col-12 col-sm-6 col-md-4 col-lg-3"}>
+                            <Link to={`/detail/${product.id}`}>
+                                <CardComponentDestructuring
+                                    imageURL={product.image}
+                                    description={product.description}
+                                    title={product.title}
+                                />
+                            </Link>
+
                         </div>
 
 
