@@ -30,7 +30,7 @@ export default function Home() {
                     products.map((product) => (
                         <div
                             key={product.id}
-                            className={"col-12 col-sm-6 col-md-4 col-lg-3"}>
+                            className={" col-12 col-sm-6 col-md-4 col-lg-3"}>
                             <Link to={`/detail/${product.id}`}
                             className={'text-decoration-none'}
                             >
@@ -38,6 +38,7 @@ export default function Home() {
                                     imageURL={product.image}
                                     description={product.description}
                                     title={product.title}
+                                    rating={product.rating.rate}
                                 />
                             </Link>
 

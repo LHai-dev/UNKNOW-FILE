@@ -10,6 +10,7 @@ import KafkaComponent from "./component/KafkaComponent";
 import MicroserviceComponent from "./component/MicroserviceComponent";
 import SpringBooTComponent from "./component/SpringBooTComponent";
 import CardDetailComponent from "./component/CardDetailComponent";
+import InsertDataComponent from "./component/InsertDataComponent";
 function App() {
   const data = products
     console.log(data)
@@ -19,6 +20,7 @@ function App() {
 
       <Routes>
         <Route path={'/'} element={<Home/>}/>
+        <Route path={'/insert-data'} element={<InsertDataComponent/>}/>
         <Route path={'/detail/:id'} element={<CardDetailComponent/>}/>
         <Route path={'/kafka'} element={<KafkaComponent/>}/>
         <Route path={'/microservice'} element={<MicroserviceComponent/>}/>

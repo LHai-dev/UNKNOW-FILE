@@ -2,8 +2,10 @@
 'use client';
 
 import { Button, Navbar } from 'flowbite-react';
+import {Link, useNavigate} from "react-router-dom";
 
 function NavbarComponent() {
+    const navigate = useNavigate()
     return (
         <Navbar className={"bg-white"}  rounded>
             <Navbar.Brand href="/">
@@ -14,7 +16,7 @@ function NavbarComponent() {
 
             </Navbar.Brand>
             <div className="flex md:order-2 ">
-                {/*<Button>Get started</Button>*/}
+                    <Button onClick={()=> navigate("/insert-data")}>Insert Book</Button>
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse >
