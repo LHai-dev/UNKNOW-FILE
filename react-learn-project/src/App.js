@@ -19,7 +19,7 @@ function App() {
 
       <Routes>
         <Route path={'/'} element={<Home/>}/>
-        <Route path={'/detail:id'} element={<CardDetailComponent/>}/>
+        <Route path={'/detail/:id'} element={<CardDetailComponent/>}/>
         <Route path={'/kafka'} element={<KafkaComponent/>}/>
         <Route path={'/microservice'} element={<MicroserviceComponent/>}/>
         <Route path={'/spring-boot'} element={<SpringBooTComponent/>}/>
