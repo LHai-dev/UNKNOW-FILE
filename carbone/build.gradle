@@ -1,0 +1,42 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.carbone-sdk-java'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+ext {
+	set('springCloudVersion', "2023.0.0")
+}
+dependencies {
+	// https://mvnrepository.com/artifact/io.github.openfeign/feign-gson
+	implementation 'io.github.openfeign:feign-gson:9.4.0'
+// https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp
+	implementation 'io.github.openfeign:feign-okhttp:13.1'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'com.tennaxia.carbone:carbone-sdk-java:1.0.0-RC1'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
