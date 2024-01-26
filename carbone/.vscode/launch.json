@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TestSpringBootApplication<database-static-spring-boot>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "co.cstad.test.springboot.TestSpringBootApplication",
+            "projectName": "database-static-spring-boot",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
