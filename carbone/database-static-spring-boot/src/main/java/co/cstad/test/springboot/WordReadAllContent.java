@@ -1,12 +1,21 @@
 package co.cstad.test.springboot;
 
+import com.microsoft.schemas.office.word.STWrapType;
+import com.microsoft.schemas.vml.CTGroup;
+import com.microsoft.schemas.vml.CTRect;
 import org.apache.poi.xwpf.usermodel.*;
+import org.apache.xmlbeans.XmlException;
+import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STVerticalAlignRun;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPicture;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTR;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTxbxContent;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTVerticalAlignRun;
+import org.w3c.dom.Node;
+
+
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Month;
@@ -16,7 +25,7 @@ import java.util.*;
 
 public class WordReadAllContent {
 
-	static void traversePictures(List<XWPFPicture> pictures) throws Exception {
+	static void traversePictures(List<XWPFPicture> pictures) {
 		for (XWPFPicture picture : pictures) {
 			System.out.println(picture);
 			XWPFPictureData pictureData = picture.getPictureData();
@@ -24,7 +33,7 @@ public class WordReadAllContent {
 		}
 	}
 
-	static void traverseRunElements(List<IRunElement> runElements) throws Exception {
+	static void traverseRunElements(List<IRunElement> runElements) {
 		for (IRunElement runElement : runElements) {
 			if (runElement instanceof XWPFFieldRun) {
 				XWPFFieldRun fieldRun = (XWPFFieldRun) runElement;
@@ -92,25 +101,25 @@ public class WordReadAllContent {
 
 	public static void main(String[] args) throws Exception {
 
-		String inFilePath = "/home/lim-hai/Documents/Test2.doc";
-
-		XWPFDocument document = new XWPFDocument(new FileInputStream(inFilePath));
-		traverseBodyElements(document.getBodyElements());
-
-		document.close();
+//		String inFilePath = "/home/lim-hai/Documents/Test1 (another copy).docx";
+//
+//		XWPFDocument document = new XWPFDocument(new FileInputStream(inFilePath));
+//		traverseBodyElements(document.getBodyElements());
+//
+//		document.close();
 
 
 		try {
 			// Load the existing Word document
 
-			FileInputStream fis = new FileInputStream("/home/lim-hai/Documents/Test2.doc");
+			FileInputStream fis = new FileInputStream("/home/lim-hai/Documents/Test1 (another copy).docx");
 			XWPFDocument document1 = new XWPFDocument(fis);
 			// Get the current date as a dynamic date string
 			Date currentDate = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String dateString = dateFormat.format(currentDate);
 
-			int month = 3; // Replace with your desired month (1 for January, 2 for February, etc.)
+			int month = 1; // Replace with your desired month (1 for January, 2 for February, etc.)
 			int day = 1;
 			String monthString = Month.of(month).getDisplayName(TextStyle.FULL, Locale.getDefault());
 			String dayString = DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.getDefault());
@@ -127,25 +136,46 @@ public class WordReadAllContent {
 
 			macroReplacements.put("«KVT»", "មនុស្សណាម្នាក់ ក្រុមណាមួយឬធ្វីមួយ ទាំងរូបី ទាំងអរូបី ដែលទទួលរងអំពើ (ផ្លូវកាយឬផ្លូវចិត្ត) ពីប្រធានឬអ្នកធ្វើអំពើ។ ឧ. ១-លោក ត្រូវបានលោក ប្រើប្រាស់ ដើម្បីសម្រេចបំណងរបស់ខ្លួន។ ក្នុងករណីនេះលោក គឺជាកម្មវត្ថុ ឯលោក  គឺជាប្រធាន (អ្នកធ្វើអំពី) ឧ.២-សច្ចភាពដែលក្រុមណាមួយកំពុងស្វែងរកដើម្បីដោះស្រាយជម្លោះ ឬ បញ្ហាណាមួយដែលកំពុងកើតឡើងគឺជាកម្មវត្ថុ");
 			// Add more macros as needed
+			createRotatedWordParagraph(document1,"hellovbong");
 
-			// Replace macros in the document
 			replaceMacrosInDocument(document1, macroReplacements);
 
+
 			// Save the updated document
-			File targetFile = new File("Updated.docx");
+			File targetFile = new File("MPCT_"+UUID.randomUUID().toString()+".docx");
 			FileOutputStream fos = new FileOutputStream(targetFile);
 			document1.write(fos);
-
-			// Close the streams
-			fis.close();
 			fos.close();
 			Desktop.getDesktop().open(targetFile);
+			// Close the streams
+			fis.close();
 			System.out.println("Word document updated successfully.");
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
+
+	private static void createRotatedWordParagraph(XWPFDocument doc, String text) {
+		Map<String, String> macroReplacements = Map.of("«KVT1»", text);
+
+		// Create a rotated paragraph
+		XWPFParagraph paragraph = doc.createParagraph();
+		paragraph.setVerticalAlignment(TextAlignment.CENTER);
+
+//		CTVerticalAlignRun ctVaRun = paragraph.getCTP().addNewRPr().addNewVertAlign();
+//		ctVaRun.setVal(STVerticalAlignRun.SUPERSCRIPT);
+
+		// Create a run inside the paragraph
+		XWPFRun run = paragraph.createRun();
+		run.setText("«KVT1»");
+		run.setBold(true);
+		run.setFontSize(12);
+
+		replaceMacrosInDocument(doc, macroReplacements);
+	}
+
 
 
 	private static void replaceMacrosInDocument(XWPFDocument document,
